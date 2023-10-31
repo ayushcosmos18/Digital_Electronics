@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Systems Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #converter {
+            background-color: #ff7f50; /* Coral */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: 20px;
+            display: inline-block;
+        }
+
+        select, input, button {
+            font-size: 18px;
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+
+        select, input, button:hover {
+            background-color: #ff6347; /* Tomato */
+            color: #fff;
+        }
+
+        button {
+            cursor: pointer.
+        }
+
+        #converter, #info {
+            width: 45%;
+        }
+
+        #converter {
+            background-color: #f9f9f9;
+        }
+
+        #info {
+            background-color: #e6e6e6; /* Light Gray */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin: 20px;
+        }
+
+        .info-item {
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .info-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .info-content {
+            display: none;
+            padding: 10px;
+        }
+
+        .info-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Number Systems Converter</h1>
+    <div id="converter">
+        <label for="from">Convert from:</label>
+        <select id="from">
+            <option value="decimal">Decimal</option>
+            <option value="binary">Binary</option>
+            <option value="hexadecimal">Hexadecimal</option>
+        </select>
+
+        <label for="to">Convert to:</label>
+        <select id="to">
+            <option value="decimal">Decimal</option>
+            <option value="binary">Binary</option>
+            <option value="hexadecimal">Hexadecimal</option>
+        </select>
+
+        <input type="text" id="input" placeholder="Enter a number">
+        <button onclick="convert()">Convert</button>
+        <div id="output"></div>
+    </div>
+
+    <div id="info">
+        <h2>Why Number Systems Matter</h2>
+        <p>
+            Number systems, such as decimal, binary, and hexadecimal, are fundamental in computing and electronics. Electronic devices use these conversions for data manipulation, storage, and transmission. Understanding number systems is crucial for programmers and engineers to work with data efficiently and effectively.
+        </p>
+        <p>
+            Explore more about how different number systems impact electronics:
+        </p>
+        <div class="info-item" onclick="toggleInfo(1)">
+            <strong>Binary Number System</strong>
+            <div class="info-content">
+                <p>
+                    The binary system, with its 0s and 1s, is the foundation of digital electronics. It represents the on/off states of transistors in microchips, enabling the binary logic used in computers.
+                </p>
+                <a href="https://example.com/binary-info" target="_blank">Learn More</a>
+            </div>
+        </div>
+        <div class="info-item" onclick="toggleInfo(2)">
+            <strong>Hexadecimal Number System</strong>
+            <div class="info-content">
+                <p>
+                    Hexadecimal, or base-16, is used to represent binary values more concisely. It's commonly used in programming and microcontroller applications.
+                </p>
+                <a href="https://example.com/hexadecimal-info" target="_blank">Learn More</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function convert() {
+            const from = document.getElementById("from").value;
+            const to = document.getElementById("to").value;
+            const inputValue = document.getElementById("input").value;
+            let result;
+
+            if (from === "decimal" && to === "binary") {
+                result = (parseInt(inputValue, 10)).toString(2);
+            } else if (from === "binary" && to === "decimal") {
+                result = parseInt(inputValue, 2).toString(10);
+            } else if (from === "hexadecimal" && to === "decimal") {
+                result = parseInt(inputValue, 16).toString(10);
+            } else if (from === "decimal" && to === "hexadecimal") {
+                if (/^0x/.test(inputValue)) {
+                    result = inputValue;
+                } else {
+                    result = "0x" + (parseInt(inputValue, 10)).toString(16);
+                }
+            } else if (from === "binary" && to === "hexadecimal") {
+                result = "0x" + (parseInt(inputValue, 2)).toString(16);
+            } else if (from === "hexadecimal" && to === "binary") {
+                result = (parseInt(inputValue, 16)).toString(2);
+            } else {
+                result = inputValue; // Keep it as is if no conversion is needed
+            }
+
+            document.getElementById("output").textContent = `Result: ${result}`;
+        }
+
+        function toggleInfo(index) {
+            const infoContent = document.querySelectorAll('.info-content');
+            infoContent.forEach((content, i) => {
+                content.classList.remove('active');
+                if (i === index - 1) {
+                    content.classList.add('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
