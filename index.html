@@ -18,7 +18,7 @@
 
         #converter {
             background-color: #ff7f50; 
-            padding: 20px;
+            padding: 10px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             margin: 20px;
@@ -78,6 +78,29 @@
         .info-content.active {
             display: block;
         }
+        
+
+        .container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input {
+            padding: 5px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #0074D9;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #output1 {
+            font-size: 20px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -100,6 +123,13 @@
         <input type="text" id="input" placeholder="Enter a number">
         <button onclick="convert()">Convert</button>
         <div id="output"></div>
+    </div>
+
+    <div class="container">
+        <h1>Binary to Gray Code</h1>
+        <input type="text" id="binaryInput" placeholder="Enter binary number (0s and 1s)">
+        <button onclick="convertToGray()">Convert</button>
+        <p id="output1"></p>
     </div>
 
     <div id="info">
@@ -170,6 +200,30 @@ In this system there are 16 symbols or possible digit values from 0 to 9, follow
                     content.classList.add('active');
                 }
             });
+        }
+
+        function binaryToGray(binary) {
+            let gray = "";
+            gray += binary[0];
+
+            for (let i = 1; i < binary.length; i++) {
+                gray += binary[i - 1] === binary[i] ? '0' : '1';
+            }
+
+            return gray;
+        }
+
+        function convertToGray() {
+            const binaryInput = document.getElementById("binaryInput");
+            const output1 = document.getElementById("output1");
+            const binary = binaryInput.value;
+
+            if (/^[01]+$/.test(binary)) {
+                const grayCode = binaryToGray(binary);
+                output1.innerHTML = `Gray Code: ${grayCode}`;
+            } else {
+                output1.innerHTML = "Please enter a valid binary number (0s and 1s).";
+            }
         }
     </script>
 </body>
